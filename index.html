@@ -74,7 +74,7 @@
 <div class="list" id="leaderboard"></div>
 
 <script>
-const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRTPbTVWOuQjHkywlDuXuTgMcwJowQz2d91HcTGyCoqC-n6mNR7k9c5K4wYMejsypxkIa5UUXTrjwz9/pub?output=csv";
+const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWWXihiKZHGLBGPkrmv8mF6GoCh25qb6uo7DnWpRCEEWoS0zeI4Tq9jYXFfThv-8-ag8DDnvkZrvwI/pub?output=csv";
 
 fetch(sheetURL)
   .then(res => res.text())
@@ -84,20 +84,20 @@ fetch(sheetURL)
 
     container.innerHTML = "";
 
-    rows.forEach((row, index) => {
-      const [name, votes] = row.split(",");
+    rows.forEach(row => {
+      const [rank, name, img] = row.split(",");
 
-      if (!name) return;
+      if (!rank || !name) return;
 
       const div = document.createElement("div");
       div.className = "row";
 
       div.innerHTML = `
         <div class="left">
-          <div class="rank">#${index + 1}</div>
-          <div class="name">${name}</div>
+          <div class="rank">#${rank.trim()}</div>
+          ${img ? `<img src="${img.trim()}">` : ""}
+          <div class="name">${name.trim()}</div>
         </div>
-        <div>${votes.trim()} votes</div>
       `;
 
       container.appendChild(div);
