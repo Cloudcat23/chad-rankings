@@ -7,47 +7,63 @@
     body {
       margin: 0;
       font-family: Arial;
-      background: radial-gradient(circle at top, #111, #000);
+      background: #000;
       color: white;
-      text-align: center;
     }
 
     h1 {
-      font-size: 60px;
+      text-align: center;
+      font-size: 50px;
       color: gold;
       text-shadow: 0 0 20px gold;
+      margin: 20px 0;
     }
 
-    .container {
+    .list {
+      width: 90%;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .row {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .card {
-      width: 260px;
-      padding: 25px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: space-between;
+      background: #111;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 15px;
       transition: 0.3s;
     }
 
-    .card:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px gold;
+    .row:hover {
+      transform: scale(1.02);
+      background: #1a1a1a;
     }
 
-    .number {
-      font-size: 40px;
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .rank {
+      font-size: 24px;
       color: gold;
+      width: 50px;
     }
 
     .name {
-      font-size: 22px;
+      font-size: 20px;
     }
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
   </style>
 </head>
 
@@ -55,15 +71,15 @@
 
 <h1>🔥 LIVE CHAD RANKINGS 🔥</h1>
 
-<div class="container" id="leaderboard"></div>
+<div class="list" id="leaderboard"></div>
 
 <script>
-const sheetURL = https:"//docs.google.com/spreadsheets/d/e/2PACX-1vTWWXihiKZHGLBGPkrmv8mF6GoCh25qb6uo7DnWpRCEEWoS0zeI4Tq9jYXFfThv-8-ag8DDnvkZrvwI/pub?output=csv";
+const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWWXihiKZHGLBGPkrmv8mF6GoCh25qb6uo7DnWpRCEEWoS0zeI4Tq9jYXFfThv-8-ag8DDnvkZrvwI/pubhtml";
 
 fetch(sheetURL)
   .then(res => res.text())
   .then(data => {
-    const rows = data.split("\n").slice(1); // skip header
+    const rows = data.split("\n").slice(1);
     const container = document.getElementById("leaderboard");
 
     rows.forEach(row => {
@@ -72,16 +88,20 @@ fetch(sheetURL)
 
       const rank = cols[0];
       const name = cols[1];
+      const img = cols[2];
 
-      const card = document.createElement("div");
-      card.className = "card";
+      const div = document.createElement("div");
+      div.className = "row";
 
-      card.innerHTML = `
-        <div class="number">#${rank}</div>
-        <div class="name">${name}</div>
+      div.innerHTML = `
+        <div class="left">
+          <div class="rank">#${rank}</div>
+          ${img ? `<img src="${img}">` : ""}
+          <div class="name">${name}</div>
+        </div>
       `;
 
-      container.appendChild(card);
+      container.appendChild(div);
     });
   });
 </script>
