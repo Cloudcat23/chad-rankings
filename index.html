@@ -6,7 +6,7 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: Arial;
       background: radial-gradient(circle at top, #111, #000);
       color: white;
       text-align: center;
@@ -14,15 +14,8 @@
 
     h1 {
       font-size: 60px;
-      margin-top: 20px;
       color: gold;
-      text-shadow: 0 0 20px gold, 0 0 40px gold;
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px gold; }
-      to { text-shadow: 0 0 30px gold, 0 0 60px gold; }
+      text-shadow: 0 0 20px gold;
     }
 
     .container {
@@ -37,11 +30,9 @@
       width: 260px;
       padding: 25px;
       border-radius: 20px;
-      backdrop-filter: blur(12px);
       background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
       transition: 0.3s;
-      animation: fadeIn 0.8s ease forwards;
     }
 
     .card:hover {
@@ -49,80 +40,51 @@
       box-shadow: 0 0 30px gold;
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(30px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
     .number {
       font-size: 40px;
-      font-weight: bold;
       color: gold;
-      margin-bottom: 10px;
-      text-shadow: 0 0 15px gold;
     }
 
     .name {
       font-size: 22px;
-      color: #ddd;
     }
-
   </style>
 </head>
 
 <body>
 
-<h1>🔥 CHAD RANKINGS 🔥</h1>
-<p style="color:#888;">Official Rankings • 2026</p>
+<h1>🔥 LIVE CHAD RANKINGS 🔥</h1>
 
-<div class="container">
+<div class="container" id="leaderboard"></div>
 
-  <div class="card">
-    <div class="number">#1</div>
-    <div class="name">Hemanth</div>
-  </div>
+<script>
+const sheetURL = https://docs.google.com/spreadsheets/d/e/2PACX-1vTWWXihiKZHGLBGPkrmv8mF6GoCh25qb6uo7DnWpRCEEWoS0zeI4Tq9jYXFfThv-8-ag8DDnvkZrvwI/pub?output=csv;
 
-  <div class="card">
-    <div class="number">#2</div>
-    <div class="name">Maheeth</div>
-  </div>
+fetch(sheetURL)
+  .then(res => res.text())
+  .then(data => {
+    const rows = data.split("\n").slice(1); // skip header
+    const container = document.getElementById("leaderboard");
 
-  <div class="card">
-    <div class="number">#3</div>
-    <div class="name">Rahul / Raghav</div>
-  </div>
+    rows.forEach(row => {
+      const cols = row.split(",");
+      if(cols.length < 2) return;
 
-  <div class="card">
-    <div class="number">#4</div>
-    <div class="name">Achintya</div>
-  </div>
+      const rank = cols[0];
+      const name = cols[1];
 
-  <div class="card">
-    <div class="number">#5</div>
-    <div class="name">Ram</div>
-  </div>
+      const card = document.createElement("div");
+      card.className = "card";
 
-  <div class="card">
-    <div class="number">#6</div>
-    <div class="name">Sushi</div>
-  </div>
+      card.innerHTML = `
+        <div class="number">#${rank}</div>
+        <div class="name">${name}</div>
+      `;
 
-  <div class="card">
-    <div class="number">#7</div>
-    <div class="name">Meer</div>
-  </div>
-
-  <div class="card">
-    <div class="number">#8</div>
-    <div class="name">Vian</div>
-  </div>
-
-  <div class="card">
-    <div class="number">#9</div>
-    <div class="name">Kolhe</div>
-  </div>
-
-</div>
+      container.appendChild(card);
+    });
+  });
+</script>
 
 </body>
 </html>
