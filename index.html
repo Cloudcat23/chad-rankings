@@ -7,7 +7,7 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #000;
+      background: radial-gradient(circle at top, #111, #000);
       color: white;
     }
 
@@ -15,11 +15,13 @@
       text-align: center;
       font-size: 50px;
       margin: 20px 0;
+      color: white;
+      letter-spacing: 2px;
     }
 
     .list {
       width: 90%;
-      max-width: 700px;
+      max-width: 750px;
       margin: auto;
     }
 
@@ -27,16 +29,18 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #111;
-      margin: 10px 0;
-      padding: 15px;
-      border-radius: 15px;
+      margin: 12px 0;
+      padding: 18px;
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       transition: 0.3s;
     }
 
     .row:hover {
-      transform: scale(1.02);
-      background: #1a1a1a;
+      transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(255,255,255,0.2);
     }
 
     .left {
@@ -46,8 +50,9 @@
     }
 
     .rank {
-      font-size: 24px;
-      width: 50px;
+      font-size: 26px;
+      width: 60px;
+      font-weight: bold;
     }
 
     .name {
@@ -55,11 +60,35 @@
     }
 
     img {
-      width: 50px;
-      height: 50px;
+      width: 55px;
+      height: 55px;
       border-radius: 50%;
       object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.2);
     }
+
+    /* TOP 3 STYLING */
+    .top1 {
+      background: linear-gradient(90deg, rgba(255,215,0,0.2), transparent);
+      border: 1px solid gold;
+      box-shadow: 0 0 20px gold;
+    }
+
+    .top2 {
+      background: linear-gradient(90deg, rgba(192,192,192,0.2), transparent);
+      border: 1px solid silver;
+    }
+
+    .top3 {
+      background: linear-gradient(90deg, rgba(205,127,50,0.2), transparent);
+      border: 1px solid #cd7f32;
+    }
+
+    .votes {
+      font-size: 14px;
+      color: #aaa;
+    }
+
   </style>
 </head>
 
@@ -80,19 +109,31 @@ fetch(sheetURL)
 
     container.innerHTML = "";
 
-    rows.forEach(row => {
+    rows.forEach((row, index) => {
       const [rank, name, img] = row.split(",");
 
       if (!rank || !name) return;
 
+      let extraClass = "";
+      let crown = "";
+
+      if (index === 0) {
+        extraClass = "top1";
+        crown = "👑";
+      } else if (index === 1) {
+        extraClass = "top2";
+      } else if (index === 2) {
+        extraClass = "top3";
+      }
+
       const div = document.createElement("div");
-      div.className = "row";
+      div.className = "row " + extraClass;
 
       div.innerHTML = `
         <div class="left">
           <div class="rank">#${rank.trim()}</div>
           ${img ? `<img src="${img.trim()}">` : ""}
-          <div class="name">${name.trim()}</div>
+          <div class="name">${name.trim()} ${crown}</div>
         </div>
       `;
 
