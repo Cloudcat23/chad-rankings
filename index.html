@@ -74,37 +74,35 @@
 <div class="list" id="leaderboard"></div>
 
 <script>
-const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWWXihiKZHGLBGPkrmv8mF6GoCh25qb6uo7DnWpRCEEWoS0zeI4Tq9jYXFfThv-8-ag8DDnvkZrvwI/pub?output=csv";
+const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRTPbTVWOuQjHkywlDuXuTgMcwJowQz2d91HcTGyCoqC-n6mNR7k9c5K4wYMejsypxkIa5UUXTrjwz9/pub?output=csv";
 
 fetch(sheetURL)
   .then(res => res.text())
   .then(data => {
-    const rows = data.split("\n").slice(1);
+    const rows = data.trim().split("\n").slice(1);
     const container = document.getElementById("leaderboard");
 
-    rows.forEach(row => {
-      const cols = row.split(",");
-      if(cols.length < 2) return;
+    container.innerHTML = "";
 
-      const rank = cols[0];
-      const name = cols[1];
-      const img = cols[2];
+    rows.forEach((row, index) => {
+      const [name, votes] = row.split(",");
+
+      if (!name) return;
 
       const div = document.createElement("div");
       div.className = "row";
 
       div.innerHTML = `
         <div class="left">
-          <div class="rank">#${rank}</div>
-          ${img ? `<img src="${img}">` : ""}
+          <div class="rank">#${index + 1}</div>
           <div class="name">${name}</div>
         </div>
+        <div>${votes.trim()} votes</div>
       `;
 
       container.appendChild(div);
     });
   });
 </script>
-
 </body>
 </html>
