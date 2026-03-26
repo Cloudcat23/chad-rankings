@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Chad Rankings</title>
+  <title>GWH IB CHAD RANKINGS</title>
 
   <style>
     body {
       margin: 0;
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       background: #000;
       color: white;
     }
@@ -14,8 +14,6 @@
     h1 {
       text-align: center;
       font-size: 50px;
-      color: gold;
-      text-shadow: 0 0 20px gold;
       margin: 20px 0;
     }
 
@@ -49,7 +47,6 @@
 
     .rank {
       font-size: 24px;
-      color: gold;
       width: 50px;
     }
 
@@ -63,19 +60,17 @@
       border-radius: 50%;
       object-fit: cover;
     }
-
   </style>
 </head>
 
 <body>
 
-<h1> GWH IB CHAD RANKINGS </h1>
-<div class="form-container">
+<h1>GWH IB CHAD RANKINGS</h1>
 
 <div class="list" id="leaderboard"></div>
 
 <script>
-const sheetURL = "PASTE_YOUR_CSV_LINK_HERE";
+const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWWXihiKZHGLBGPkrmv8mF6GoCh25qb6uo7DnWpRCEEWoS0zeI4Tq9jYXFfThv-8-ag8DDnvkZrvwI/pub?output=csv";
 
 fetch(sheetURL)
   .then(res => res.text())
@@ -105,5 +100,6 @@ fetch(sheetURL)
     });
   });
 </script>
+
 </body>
 </html>
