@@ -67,6 +67,12 @@
       font-size: 20px;
     }
 
+    .subtext {
+      font-size: 13px;
+      color: gold;
+      margin-top: 3px;
+    }
+
     img {
       width: 55px;
       height: 55px;
@@ -80,7 +86,6 @@
       transform: scale(1.1);
     }
 
-    /* TOP 3 */
     .top1 {
       background: linear-gradient(90deg, rgba(255,215,0,0.25), transparent);
       border: 1px solid gold;
@@ -97,7 +102,6 @@
       border: 1px solid #cd7f32;
     }
 
-    /* IMPORTANT BOX */
     .important-box {
       position: fixed;
       top: 20px;
@@ -168,7 +172,12 @@ fetch(sheetURL)
     container.innerHTML = "";
 
     rows.forEach((row, index) => {
-      const [rank, name, img] = row.split(",");
+      const cols = row.split(",");
+
+      const rank = cols[0];
+      const name = cols[1];
+      const img = cols[2];
+      const subtext = cols[20]; // COLUMN U ✅
 
       if (!rank || !name) return;
 
@@ -191,7 +200,10 @@ fetch(sheetURL)
         <div class="left">
           <div class="rank">#${rank.trim()}</div>
           ${img ? `<img src="${img.trim()}">` : ""}
-          <div class="name">${name.trim()} ${crown}</div>
+          <div>
+            <div class="name">${name.trim()} ${crown}</div>
+            <div class="subtext">${subtext ? subtext.trim() : ""}</div>
+          </div>
         </div>
       `;
 
