@@ -27,6 +27,26 @@
       text-shadow: 0 0 10px rgba(255,255,255,0.3);
     }
 
+    .nav {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .nav a {
+      padding: 10px 20px;
+      background: gold;
+      color: black;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .nav a:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px gold;
+    }
+
     .list {
       width: 90%;
       max-width: 750px;
@@ -156,6 +176,10 @@
   </a>
 </div>
 
+<div class="nav">
+  <a href="news.html">View News</a>
+</div>
+
 <h1>GWH IB CHAD RANKINGS</h1>
 
 <div class="list" id="leaderboard"></div>
@@ -177,7 +201,7 @@ fetch(sheetURL)
       const rank = cols[0];
       const name = cols[1];
       const img = cols[2];
-      const subtext = cols[20]; // COLUMN U ✅
+      const subtext = cols[20]; // COLUMN U
 
       if (!rank || !name) return;
 
