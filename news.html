@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GWH Updates</title>
+  <title>GWH News</title>
 
   <style>
     body {
@@ -14,6 +14,7 @@
     h1 {
       text-align: center;
       margin: 20px;
+      font-size: 40px;
     }
 
     .container {
@@ -45,32 +46,62 @@
       font-size: 15px;
     }
 
-    a {
-      color: gold;
-      text-decoration: none;
+    .nav {
+      text-align: center;
+      margin-top: 10px;
     }
+
+    .nav a {
+      padding: 8px 15px;
+      background: gold;
+      color: black;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
   </style>
 </head>
 
 <body>
 
+<div class="nav">
+  <a href="index.html">← Back to Rankings</a>
+</div>
+
 <h1>GWH NEWS</h1>
 
-<div class="container">
+<div class="container" id="news"></div>
 
-  <div class="post">
-    <div class="date">March 27</div>
-    <div class="title">Hemanth still #1 👑</div>
-    <div class="content">No one has managed to dethrone him yet.</div>
-  </div>
+<script>
+const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWWXihiKZHGLBGPkrmv8mF6GoCh25qb6uo7DnWpRCEEWoS0zeI4Tq9jYXFfThv-8-ag8DDnvkZrvwI/pub?output=csv";
 
-  <div class="post">
-    <div class="date">March 26</div>
-    <div class="title">Big movement in rankings</div>
-    <div class="content">Rahul made a massive jump today.</div>
-  </div>
+fetch(sheetURL)
+  .then(res => res.text())
+  .then(data => {
+    const rows = data.trim().split("\n").slice(1);
+    const container = document.getElementById("news");
 
-</div>
+    container.innerHTML = "";
+
+    rows.forEach(row => {
+      const [date, title, content] = row.split(",");
+
+      if (!title) return;
+
+      const div = document.createElement("div");
+      div.className = "post";
+
+      div.innerHTML = `
+        <div class="date">${date.trim()}</div>
+        <div class="title">${title.trim()}</div>
+        <div class="content">${content ? content.trim() : ""}</div>
+      `;
+
+      container.appendChild(div);
+    });
+  });
+</script>
 
 </body>
 </html>
