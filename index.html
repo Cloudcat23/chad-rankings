@@ -1,167 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GWH IB CHAD RANKINGS</title>
+  <title>GWH News</title>
 
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(-45deg, #000, #111, #1a1a1a, #000);
-      background-size: 400% 400%;
-      animation: bgMove 10s infinite linear;
+      font-family: Arial;
+      background: black;
       color: white;
-    }
-
-    @keyframes bgMove {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
     }
 
     h1 {
       text-align: center;
-      font-size: 50px;
-      margin: 20px 0;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+      margin: 20px;
+      font-size: 40px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .post {
+      background: #111;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 12px;
+      border-left: 4px solid gold;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .date {
+      font-size: 12px;
+      color: gray;
+      margin-bottom: 5px;
+    }
+
+    .content {
+      font-size: 15px;
     }
 
     .nav {
       text-align: center;
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
     .nav a {
-      padding: 10px 20px;
+      padding: 8px 15px;
       background: gold;
       color: black;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .nav a:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px gold;
-    }
-
-    .list {
-      width: 90%;
-      max-width: 750px;
-      margin: auto;
-    }
-
-    .row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 12px 0;
-      padding: 18px;
-      border-radius: 18px;
-      backdrop-filter: blur(10px);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: 0.3s;
-    }
-
-    .row:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 25px rgba(255,255,255,0.3);
-    }
-
-    .left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .rank {
-      font-size: 26px;
-      width: 60px;
-      font-weight: bold;
-    }
-
-    .name {
-      font-size: 20px;
-    }
-
-    .subtext {
-      font-size: 13px;
-      color: gold;
-      margin-top: 3px;
-    }
-
-    img {
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(255,255,255,0.2);
-      transition: 0.3s;
-    }
-
-    img:hover {
-      transform: scale(1.1);
-    }
-
-    .top1 {
-      background: linear-gradient(90deg, rgba(255,215,0,0.25), transparent);
-      border: 1px solid gold;
-      box-shadow: 0 0 25px gold;
-    }
-
-    .top2 {
-      background: linear-gradient(90deg, rgba(192,192,192,0.25), transparent);
-      border: 1px solid silver;
-    }
-
-    .top3 {
-      background: linear-gradient(90deg, rgba(205,127,50,0.25), transparent);
-      border: 1px solid #cd7f32;
-    }
-
-    .important-box {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 200px;
-      padding: 15px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 12px;
-      backdrop-filter: blur(12px);
-      text-align: center;
-      z-index: 1000;
-      animation: floatBox 2s infinite ease-in-out;
-    }
-
-    @keyframes floatBox {
-      0% {transform: translateY(0);}
-      50% {transform: translateY(-5px);}
-      100% {transform: translateY(0);}
-    }
-
-    .important-box h3 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
-    }
-
-    .important-box a {
-      display: block;
-      padding: 10px;
-      background: white;
-      color: black;
-      text-decoration: none;
       border-radius: 8px;
+      text-decoration: none;
       font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .important-box a:hover {
-      background: gold;
-      transform: scale(1.05);
     }
 
   </style>
@@ -169,20 +71,13 @@
 
 <body>
 
-<div class="important-box">
-  <h3>Important</h3>
-  <a href="https://forms.gle/sfRczGHDvChQ5S2SA" target="_blank">
-    Submit / Vote
-  </a>
-</div>
-
 <div class="nav">
-  <a href="news.html">View News</a>
+  <a href="index.html">← Back to Rankings</a>
 </div>
 
-<h1>GWH IB CHAD RANKINGS</h1>
+<h1>GWH NEWS</h1>
 
-<div class="list" id="leaderboard"></div>
+<div class="container" id="news"></div>
 
 <script>
 const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWWXihiKZHGLBGPkrmv8mF6GoCh25qb6uo7DnWpRCEEWoS0zeI4Tq9jYXFfThv-8-ag8DDnvkZrvwI/pub?output=csv";
@@ -191,44 +86,22 @@ fetch(sheetURL)
   .then(res => res.text())
   .then(data => {
     const rows = data.trim().split("\n").slice(1);
-    const container = document.getElementById("leaderboard");
+    const container = document.getElementById("news");
 
     container.innerHTML = "";
 
-    rows.forEach((row, index) => {
-      const cols = row.split(",");
+    rows.forEach(row => {
+      const [date, title, content] = row.split(",");
 
-      const rank = cols[0];
-      const name = cols[1];
-      const img = cols[2];
-      const subtext = cols[20]; // COLUMN U
-
-      if (!rank || !name) return;
-
-      let extraClass = "";
-      let crown = "";
-
-      if (index === 0) {
-        extraClass = "top1";
-        crown = "👑";
-      } else if (index === 1) {
-        extraClass = "top2";
-      } else if (index === 2) {
-        extraClass = "top3";
-      }
+      if (!title) return;
 
       const div = document.createElement("div");
-      div.className = "row " + extraClass;
+      div.className = "post";
 
       div.innerHTML = `
-        <div class="left">
-          <div class="rank">#${rank.trim()}</div>
-          ${img ? `<img src="${img.trim()}">` : ""}
-          <div>
-            <div class="name">${name.trim()} ${crown}</div>
-            <div class="subtext">${subtext ? subtext.trim() : ""}</div>
-          </div>
-        </div>
+        <div class="date">${date.trim()}</div>
+        <div class="title">${title.trim()}</div>
+        <div class="content">${content ? content.trim() : ""}</div>
       `;
 
       container.appendChild(div);
